@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .item{
+            background-color: rgb(43, 255, 0);
+            padding: 10px;
+        }
+
+        ul {
+            line-height: 2;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        li{
+            list-style: none;
+            width: 150px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Clientes</h2>
+    <ul>
+        <li th:each="customer : ${customers}" th:text="${customer.firstName} + ${customer.lastName}" th:classappend="item"></li>
+    </ul>
+
+    <a href="/">Inicio</a>
+</body>
+</html>

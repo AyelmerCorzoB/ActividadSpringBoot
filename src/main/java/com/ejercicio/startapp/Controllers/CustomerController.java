@@ -3,15 +3,16 @@ package com.ejercicio.startapp.Controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.ejercicio.startapp.Models.Customer;
 import com.ejercicio.startapp.Repository.CustomerRepository;
 
-@RestController
+@Controller
 @RequestMapping("/api")
 public class CustomerController {
     private final CustomerRepository repo;
@@ -21,14 +22,15 @@ public class CustomerController {
     }
 
     @GetMapping("/customers")
-    public List<Customer> getCustomers(
-        @RequestParam(required = false) String lastName) {
-        
-        return repo.findAll().stream()
-            .filter(customer -> 
-                lastName == null || 
-                (customer.getLastName() != null && 
-                 customer.getLastName().equalsIgnoreCase(lastName)))
-            .collect(Collectors.toList());
+    public String getCustomers(
+            @RequestParam(required = false) String apellido,
+            Model model) {
+
+        List<Customer> customerSearch = repo.findAll().stream()
+                .filter(c -> apellido == null || c.getLastName().equalsIgnoreCase(apellido))
+                .collect(Collectors.toList());
+        model.addAttribute("customers", customerSearch);
+        return "customer";
     }
+
 }

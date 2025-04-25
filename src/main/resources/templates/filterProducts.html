@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <h2>Productos filtrados</h2>
+    <ul>
+        <li th:each="product : ${products}" th:text="${product.name} + ' - $' + ${product.price}+'00'"></li>
+</ul>
+<a href="/">volver</a>
+</body>
+</html>
